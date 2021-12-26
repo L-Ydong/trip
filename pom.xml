@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cn.wolfcode</groupId>
+    <artifactId>trip</artifactId>
+    <version>1.0.0</version>
+    <modules>
+        <module>trip-website</module>
+        <module>trip-website-api</module>
+        <module>trip-core</module>
+        <module>trip-mgrsite</module>
+    </modules>
+    <!--作为父项目, 需要设置打包模式为pom-->
+    <packaging>pom</packaging>
+
+    <!--继承spring-boot-->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.3</version>
+        <relativePath/>
+    </parent>
+
+    <!--统一管理子类的依赖版本-->
+    <dependencyManagement>
+        <dependencies>
+            <!--trip-core的版本管理-->
+            <dependency>
+                <groupId>cn.wolfcode</groupId>
+                <artifactId>trip-core</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+            <!--mybatis-plus-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>3.4.0</version>
+            </dependency>
+            <!--fastjson-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.74</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+</project>
