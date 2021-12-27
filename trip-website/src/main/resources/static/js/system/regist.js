@@ -14,13 +14,13 @@ $(function () {
         //   /^1[3456789]\d{9}$/
         if (/^1\d{10}$/g.test(val)) {
 
-            $.get(domainUrl + "/users/checkPhone", {phone:val}, function (data) {
-                if(!data){
+            $.get(domainUrl + "/users/checkPhone", {phone: val}, function (data) {
+                if (data.code == 200 && data.data == false) {
                     $('#inputPassword').next().text('').hide()
                     $('.login-box').hide()
                     $('.signup-box').show()
                     $("#phone").val(val);
-                }else{
+                } else {
                     $('#inputPassword').next().text('手机号码已注册.').show()
                 }
             })
@@ -49,12 +49,12 @@ $(function () {
             }, 1000);
 
             var phone = $("#phone").val();
-            $.get(domainUrl + "/users/sendVerifyCode", {phone:phone}, function (data) {
+            $.get(domainUrl + "/users/sendVerifyCode", {phone: phone}, function (data) {
 
                 console.log(data);
-                if(data.code == 200){
+                if (data.code == 200) {
                     popup("发送成功")
-                }else{
+                } else {
                     popup(data.msg);
                 }
             })
@@ -64,12 +64,12 @@ $(function () {
     //将普通表单转换成异步表单
     //表单发起异步请求
     $("#editForm").ajaxForm({
-        url:domainUrl + "/users/regist",
-        type:"POST",
-        success:function (data) {
-            if(data.code == 200){
+        url: domainUrl + "/users/regist",
+        type: "POST",
+        success: function (data) {
+            if (data.code == 200) {
                 location.href = "/login.html";
-            }else{
+            } else {
                 popup(data.msg);
             }
         }
