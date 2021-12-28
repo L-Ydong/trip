@@ -8,4 +8,11 @@ public interface IUserInfoService extends IService<UserInfo> {
      * @param phone 手机号
      */
     boolean checkPhone(String phone);
+
+    /**
+     * 发送验证码
+     * @param phone 手机号
+     * @return
+     */
+    String sendVerifyCode(String phone);
 }

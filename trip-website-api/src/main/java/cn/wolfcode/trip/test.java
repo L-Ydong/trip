@@ -1,10 +1,5 @@
-package cn.wolfcode.trip.service.impl;
+package cn.wolfcode.trip;
 
-import cn.wolfcode.trip.domain.UserInfo;
-import cn.wolfcode.trip.mapper.UserInfoMapper;
-import cn.wolfcode.trip.service.IUserInfoService;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tencentcloudapi.common.Credential;
 import com.tencentcloudapi.common.exception.TencentCloudSDKException;
 import com.tencentcloudapi.common.profile.ClientProfile;
@@ -12,23 +7,10 @@ import com.tencentcloudapi.common.profile.HttpProfile;
 import com.tencentcloudapi.sms.v20210111.SmsClient;
 import com.tencentcloudapi.sms.v20210111.models.SendSmsRequest;
 import com.tencentcloudapi.sms.v20210111.models.SendSmsResponse;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-@Service
-@Transactional
-public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> implements IUserInfoService {
+public class test {
 
-    @Override
-    public boolean checkPhone(String phone) {
-        QueryWrapper<UserInfo> wrapper = new QueryWrapper<>();
-        wrapper.eq("phone", phone);
-        // 返回boolean值 如果是true表示已经注册
-        return super.getOne(wrapper) != null;
-    }
-
-    @Override
-    public String sendVerifyCode(String phone) {
+    public static void main(String[] args) {
         try {
             /* 必要步骤：
              * 实例化一个认证对象，入参需要传入腾讯云账户密钥对secretId，secretKey。
@@ -107,7 +89,5 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         } catch (TencentCloudSDKException e) {
             e.printStackTrace();
         }
-        return phone;
     }
-
 }
