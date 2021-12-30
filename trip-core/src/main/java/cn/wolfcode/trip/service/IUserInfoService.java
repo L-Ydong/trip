@@ -1,5 +1,6 @@
 package cn.wolfcode.trip.service;
 import cn.wolfcode.trip.domain.UserInfo;
+import cn.wolfcode.trip.vo.UserInfoVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 public interface IUserInfoService extends IService<UserInfo> {
@@ -12,7 +13,12 @@ public interface IUserInfoService extends IService<UserInfo> {
     /**
      * 发送验证码
      * @param phone 手机号
-     * @return
      */
-    String sendVerifyCode(String phone);
+    void sendVerifyCode(String phone);
+
+    /**
+     * 用户注册
+     * @param userInfoVo 注册的用户信息
+     */
+    void regist(UserInfoVo userInfoVo);
 }
