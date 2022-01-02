@@ -33,4 +33,7 @@ public class JsonResult {
     public static JsonResult error(int code) {
         return new JsonResult(code, null, null);
     }
+    public static JsonResult error(int code,String msg) {
+        return new JsonResult(code, msg, null);
+    }
 }

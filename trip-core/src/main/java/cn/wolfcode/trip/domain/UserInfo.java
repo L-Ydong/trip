@@ -29,5 +29,5 @@ public class UserInfo extends BaseDomain {
     private String city;                        // 所在城市
     private String headImgUrl;                  // 头像地址
     private String info;                        // 个性签名
-    private int state=STATE_NORMAL;                          // 用户状态 [0] 正常 [1] 禁用
+    private int state=STATE_NORMAL;             // 用户状态 [0] 正常 [1] 禁用
 }

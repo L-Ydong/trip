@@ -5,10 +5,12 @@ import cn.wolfcode.trip.common.LogicExpression;
 import cn.wolfcode.trip.domain.UserInfo;
 import cn.wolfcode.trip.service.IUserInfoService;
 import cn.wolfcode.trip.service.redis.IRedisService;
+import cn.wolfcode.trip.vo.LoginUserInfoVo;
 import cn.wolfcode.trip.vo.UserInfoVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,9 +22,6 @@ public class UserInfoController {
 
     @Autowired
     private IRedisService redisService;
-
-    @Autowired
-    private StringRedisTemplate redisTemplate;
 
     // 根据ID查询用户信息
     @GetMapping("get")
@@ -62,7 +61,7 @@ public class UserInfoController {
 
     // 完成注册
     @PostMapping("regist")
-    public JsonResult regist(UserInfoVo userInfoVo) {
+    public JsonResult regist(@Validated UserInfoVo userInfoVo) {
         // 验证参数的合理性 可以通过框架完成
         // 密码和确认密码必须一致
         if (!StringUtils.equals(userInfoVo.getPassword(), userInfoVo.getRpassword())) {
@@ -70,7 +69,7 @@ public class UserInfoController {
         }
         // 验证码是否正确
         // 1. 获取存储在redis中的验证码
-        String code = redisTemplate.opsForValue().get("users:code:" + userInfoVo.getPhone());
+        String code = redisService.getUserCode(userInfoVo.getPhone());
         // 2. 比较前端的code还有查询到的code是否一致
         if (!userInfoVo.getVerifyCode().equals(code)) {
             throw new LogicExpression(400001,"验证码错误");
@@ -78,5 +77,14 @@ public class UserInfoController {
         // 注册用户
         userInfoService.regist(userInfoVo);
         return JsonResult.success();
+    }
+
+    // 登录
+    @PostMapping("login")
+    public JsonResult login(String username, String password){
+        // 接受前台传入的参数 然后判断是否有这个用户 用户密码是否正确
+        // 存在则把用户的token和信息返回给前台
+        LoginUserInfoVo loginUserInfoVo = userInfoService.login(username,password);
+        return JsonResult.success(loginUserInfoVo);
     }
 }

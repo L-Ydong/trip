@@ -1,6 +1,7 @@
 package cn.wolfcode.trip.vo;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.Pattern;
 
 @Setter
 @Getter
+@NoArgsConstructor
 public class UserInfoVo {
 
     @Pattern(regexp = "^1\\d{10}$",message = "手机号格式不合法")
