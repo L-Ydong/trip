@@ -15,5 +15,5 @@ import lombok.Setter;
 public class BaseDomain {
     // 指定主键ID 自动递增
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    protected Long id;
 }
